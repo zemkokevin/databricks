@@ -1,0 +1,10 @@
+{
+	"name": "Target_storage",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://decoursesacc2.dfs.core.windows.net/"
+		}
+	}
+}
