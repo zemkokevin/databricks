@@ -1,0 +1,25 @@
+{
+	"name": "Landing_GitHubArchiveDay",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Target_storage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_load_date": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "githubarchiveday_yyyymmdd.json",
+				"folderPath": "github",
+				"fileSystem": "landing"
+			}
+		},
+		"schema": {}
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "Source_GitHubArchiveDay",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "GitHub",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_load_date": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "githubarchive_day_yyyymmdd.json",
+				"folderPath": "github",
+				"fileSystem": "external"
+			}
+		},
+		"schema": {}
+	}
+}
