@@ -1,8 +1,8 @@
 {
-	"name": "Landing_GitHubArchiveDay",
+	"name": "Landing_CompanyDetail",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ToGithub",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -17,10 +17,10 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@concat('githubarchive_day_',dataset().yyyymmdd,'.json')",
+					"value": "@concat('company_detail_',dataset().yyyymmdd,'.json')",
 					"type": "Expression"
 				},
-				"folderPath": "github",
+				"folderPath": "company_detail",
 				"fileSystem": "landing"
 			}
 		},

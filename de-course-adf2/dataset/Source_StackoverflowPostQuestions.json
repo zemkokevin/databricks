@@ -2,7 +2,7 @@
 	"name": "Source_StackoverflowPostQuestions",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Stackoverflow",
+			"referenceName": "AzureSynapseAnalytics1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -99,5 +99,6 @@
 			"schema": "stackoverflow",
 			"table": "stackoverflow_post_questions"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

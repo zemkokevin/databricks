@@ -1,0 +1,9 @@
+{
+	"name": "de-course-adf2",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "97ecbfd2-868a-4013-9ad9-19d0bfed6571",
+		"tenantId": "fd7ad8f4-7a12-40cd-a668-a982f8f97eff"
+	}
+}

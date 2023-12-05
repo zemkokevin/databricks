@@ -6,8 +6,9 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"p_load_date": {
-				"type": "string"
+			"yyyymmdd": {
+				"type": "string",
+				"defaultValue": "p_load_date"
 			}
 		},
 		"annotations": [],
@@ -15,11 +16,15 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "githubarchive_day_yyyymmdd.json",
+				"fileName": {
+					"value": "@concat('githubarchive_day_',dataset().yyyymmdd,'.json')",
+					"type": "Expression"
+				},
 				"folderPath": "github",
 				"fileSystem": "external"
 			}
 		},
 		"schema": {}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

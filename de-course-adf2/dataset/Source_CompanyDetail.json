@@ -1,0 +1,25 @@
+{
+	"name": "Source_CompanyDetail",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rest_api",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"yyyymmdd": {
+				"type": "string",
+				"defaultValue": "p_load_date"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@concat('get_company_data_api?p_load_date=',dataset().yyyymmdd)",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

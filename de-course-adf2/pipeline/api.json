@@ -1,0 +1,102 @@
+{
+	"name": "api",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_load_date",
+					"value": {
+						"value": "@if(not(equals(pipeline().parameters.p_load_date, null)),pipeline().parameters.p_load_date,  getPastTime(1,'Day', 'yyyyMMdd'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_CompanyDetail",
+						"type": "DatasetReference",
+						"parameters": {
+							"yyyymmdd": {
+								"value": "@variables('v_load_date')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Landing_CompanyDetail",
+						"type": "DatasetReference",
+						"parameters": {
+							"yyyymmdd": {
+								"value": "@variables('v_load_date')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"p_load_date": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"v_load_date": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-12-04T20:09:23Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

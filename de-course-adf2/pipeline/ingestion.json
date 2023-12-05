@@ -1,0 +1,164 @@
+{
+	"name": "ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "ingestion_set",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_load_date",
+					"value": {
+						"value": "@if(not(equals(pipeline().parameters.p_load_date, null)),pipeline().parameters.p_load_date,  getPastTime(1,'Day', 'yyyyMMdd'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "github",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ingestion_set",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "github",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"p_load_date": {
+							"value": "@variables('v_load_date')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "api",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ingestion_set",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "api",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"p_load_date": {
+							"value": "@variables('v_load_date')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "stacko_answer",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "stacko_answer",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"filename": {
+							"value": "@variables('v_load_filename')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "stacko_question",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "stacko_question",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"p_load_filename": {
+							"value": "@variables('v_load_filename')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_load_filename",
+					"value": {
+						"value": "@pipeline().parameters.p_load_filename",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"p_load_date": {
+				"type": "string"
+			},
+			"p_load_filename": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"v_load_date": {
+				"type": "String"
+			},
+			"v_load_filename": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-12-05T13:38:12Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
