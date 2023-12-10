@@ -5,14 +5,7 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Set variable1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -66,39 +59,11 @@
 				"outputs": [
 					{
 						"referenceName": "Landing_StackoverflowPostAnswers",
-						"type": "DatasetReference",
-						"parameters": {
-							"filename": {
-								"value": "@variables('v_load_filename')",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				]
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "v_load_filename",
-					"value": {
-						"value": "@pipeline().parameters.filename",
-						"type": "Expression"
-					}
-				}
 			}
 		],
-		"parameters": {
-			"filename": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"v_load_filename": {
 				"type": "String"

@@ -76,9 +76,9 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "ingestion_set",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
@@ -102,9 +102,9 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "ingestion_set",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
@@ -122,30 +122,10 @@
 						}
 					}
 				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "v_load_filename",
-					"value": {
-						"value": "@pipeline().parameters.p_load_filename",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"parameters": {
 			"p_load_date": {
-				"type": "string"
-			},
-			"p_load_filename": {
 				"type": "string"
 			}
 		},
