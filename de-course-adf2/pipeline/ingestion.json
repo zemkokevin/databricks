@@ -132,9 +132,6 @@
 		"variables": {
 			"v_load_date": {
 				"type": "String"
-			},
-			"v_load_filename": {
-				"type": "String"
 			}
 		},
 		"annotations": [],
