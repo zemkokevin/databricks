@@ -88,13 +88,7 @@
 						"referenceName": "stacko_answer",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"filename": {
-							"value": "@variables('v_load_filename')",
-							"type": "Expression"
-						}
-					}
+					"waitOnCompletion": true
 				}
 			},
 			{
@@ -114,13 +108,33 @@
 						"referenceName": "stacko_question",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"p_load_filename": {
-							"value": "@variables('v_load_filename')",
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/kevin@outlook.hu/databricks/de-course-dbx/etl/b_github",
+					"baseParameters": {
+						"p_load_date": {
+							"value": "pipeline().parameters.p_load_date",
 							"type": "Expression"
 						}
 					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],

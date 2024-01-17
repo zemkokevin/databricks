@@ -64,11 +64,6 @@
 				]
 			}
 		],
-		"variables": {
-			"v_load_filename": {
-				"type": "String"
-			}
-		},
 		"annotations": [],
 		"lastPublishTime": "2023-12-04T21:45:26Z"
 	},
